@@ -3,7 +3,9 @@ from __future__ import unicode_literals
 
 import requests
 import sys
+import os
 from bs4 import BeautifulSoup
+
 
 BASE_URL = 'http://gatherer.wizards.com'
 
@@ -50,5 +52,5 @@ if __name__ == '__main__':
     try:
         output_file = sys.argv[1]
     except IndexError:
-        output_file = 'standard_cards.txt'
+        output_file = os.path.join('data', 'standard_cards.txt')
     dump_standard_cards_to_file(output_file)

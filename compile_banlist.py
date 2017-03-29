@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import requests
 from bs4 import BeautifulSoup
 import sys
+import os
 import argparse
 
 
@@ -49,7 +50,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--output-file',
         help='File to write banlist to',
-        default='banlist.txt',
+        default=os.path.join('data', 'banlist.txt'),
     )
     args = parser.parse_args()
     dump_banlist_to_file(args.url, args.output_file)
