@@ -8,6 +8,16 @@ import os
 import argparse
 
 
+NONLAND_CARD_TYPES = (
+    'creature',
+    'instant',
+    'sorcery',
+    'enchantment',
+    'artifact',
+    'planeswalker',
+)
+
+
 def dump_banlist_to_file(page_url, output_file):
     ban_list = sorted(get_banlist(page_url))
     print 'Writing banlist to {}'.format(output_file)
@@ -17,18 +27,10 @@ def dump_banlist_to_file(page_url, output_file):
 
 
 def get_banlist(page_url):
-    card_types = (
-        'creature',
-        'instant',
-        'sorcery',
-        'enchantment',
-        'artifact',
-        'planeswalker',
-    )
     print 'Fetching from {}'.format(page_url)
     page = BeautifulSoup(requests.get(page_url).content, 'html.parser')
     banned_cards = set()
-    for card_type in card_types:
+    for card_type in NONLAND_CARD_TYPES:
         banned_cards_of_type = set(
             a.text for a in page.select(
                 '.deck-list-text .sorted-by-{} .card-name a'.format(card_type)
